@@ -6,7 +6,7 @@
 /*   By: itsiros <itsiros@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 14:34:43 by itsiros           #+#    #+#             */
-/*   Updated: 2025/05/14 14:48:08 by itsiros          ###   ########.fr       */
+/*   Updated: 2025/05/15 08:48:38 by itsiros          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,42 @@ Harl::~Harl () {};
 
 void Harl::complain(std::string level) {
 	
+	std::string levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+
+	void (Harl::*functions[4])() = {
+		&Harl::debug,
+		&Harl::info,
+		&Harl::warning,
+		&Harl::error
+	};
+
+	for (int i = 0; i < 4; i++){
+		if (levels[i] == level) {
+			(this->*functions[i])();
+			return ;
+		}
+	}
+
+	std::cout << Bold << Y << "Still complaining!!!" << Res << std::endl;
 }
 
-void debug(void) {
-	std::cout << "I love having extra bacon for my 7XL-double-cheese-triple"
-			<< "-pickle-special-ketchup burger. I really do!" << std::endl;
+void Harl::debug(void) {
+	std::cout << Bold << G << "I love having extra bacon for my 7XL-double-cheese-triple"
+			<< "-pickle-special-ketchup burger. I really do!" << Res << std::endl;
 }
 
-void info(void) {
-	std::cout << "I cannot believe adding extra bacon costs more money. You didn’t"
+void Harl::info(void) {
+	std::cout << Bold << C << "I cannot believe adding extra bacon costs more money. You didn’t"
 			<< " put enough bacon in my burger! If you did, I wouldn’t be asking for more!"
-			<< std::endl;
+			<< Res << std::endl;
 }
 
-void warning(void) {
-	std::cout << "I think I deserve to have some extra bacon for free. I’ve been"
+void Harl::warning(void) {
+	std::cout << Bold << M << "I think I deserve to have some extra bacon for free. I’ve been"
 			<< " coming for years, whereas you started working here just last month."
-			<< std::endl;
+			<< Res << std::endl;
 }
 
-void error(void) {
-	std::cout << "This is unacceptable! I want to speak to the manager now." << std::endl;
+void Harl::error(void) {
+	std::cout << Bold << R << "This is unacceptable! I want to speak to the manager now." << Res << std::endl;
 }
