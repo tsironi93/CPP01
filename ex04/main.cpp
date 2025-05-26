@@ -6,7 +6,7 @@
 /*   By: itsiros <itsiros@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 10:01:03 by itsiros           #+#    #+#             */
-/*   Updated: 2025/05/14 11:52:12 by itsiros          ###   ########.fr       */
+/*   Updated: 2025/05/26 14:31:28 by itsiros          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@ static void findReplace(std::fstream &file, std::ofstream &outFile,
 	size_t		index;
 
 	while (std::getline(file, line)) {
-		while ((index = line.find(s1)) != std::string::npos) {
+		if (s1 == s2)
+		{
+			outFile << line << std::endl;
+			continue;
+		}
+		index = 0;
+		while ((index = line.find(s1, index)) != std::string::npos) {
 			line.erase(index, s1.length());
 			line.insert(index, s2);
 			index += s2.length();
